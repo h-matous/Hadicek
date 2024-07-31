@@ -25,9 +25,6 @@ unsigned short gameStadium = 0;
 //semi-transparent overlay for gameStadium: 0, 2 and 3
 sf::RectangleShape overlay;
 
-//DeltaTime (this variable is not used)
-//double dt = 0;
-
 //Player Position
 double p_xPos;
 double p_yPos;
@@ -162,47 +159,6 @@ void spawnFood()
 	}
 }
 
-/*
-std::vector<sf::Vector2f> firstFreeSpace;
-
-//This function is only used after eating last food, because the last body with the position gets still deleted, so this is to find the position that was deleted
-sf::Vector2f findFirstFreeSpace()
-{
-	for (int y = 0; y < (windowHeight / bodySize); y++)
-	{
-		for (int x = 0; x < (windowWidth / bodySize); x++)
-		{
-			firstFreeSpace.push_back(sf::Vector2f(x * bodySize, y * bodySize));
-		}
-	}
-
-	//Erasing the snake head from the std::vector
-	for (int i = 0; i < firstFreeSpace.size(); i++)
-	{
-		if (firstFreeSpace[i] == sf::Vector2f(head.getPosition()))
-		{
-			firstFreeSpace.erase(firstFreeSpace.begin() + i);
-			break;
-		}
-	}
-
-	//Erasing all (body) positions from firstFreeSpace
-	for (int i = 0; i < positions.size(); i++)
-	{
-		for (int j = 0; j < firstFreeSpace.size(); j++)
-		{
-			if (positions[i] == firstFreeSpace[j])
-			{
-				firstFreeSpace.erase(firstFreeSpace.begin() + j);
-			}
-		}
-	}
-
-	//set food position to the random sf::Vector2f chosen from the possibleFoodPositions std::vector
-	return(firstFreeSpace[0]);
-}
-*/
-
 void restartGame()
 {
 	gameStadium = 0;
@@ -265,13 +221,6 @@ int main()
 	window.setFramerateLimit(60);
 
 	//Delta Time
-	/*
-	//I did not use this, it was from an old project, but I kept it.... You can delete it
-	sf::Clock dtClock;
-	double d___t;
-	*/
-
-	//Delta Time (I used this variable instead.)
 	sf::Clock snakeTimer;
 
 	//Food timer to determine the score
@@ -345,11 +294,6 @@ int main()
 
 
 	//Player snake Head Position
-	/*
-	//Old that was not that reliable
-	p_xPos = windowWidth * 0.5f;
-	p_yPos = windowHeight * 0.5f;
-	*/
 	p_xPos = int(windowWidth / bodySize * 0.5f) * bodySize;
 	p_yPos = int(windowHeight / bodySize * 0.5f) * bodySize;
 
@@ -386,12 +330,6 @@ int main()
 				window.close();
 			}
 		}
-
-		//Delta Time (not used)
-		/*
-		d___t = dtClock.restart().asSeconds();
-		dt = d___t * 60;
-		*/
 
 
 		//Events
@@ -531,21 +469,6 @@ int main()
 						//Checking if the entire board is filled, if yes, then set to victory gameStadium (I used std::ceil to round UP the number and I subtracted 2, because the snake player head is not in the "bodies" std::vector and the second position on the board is taken by the food)
 						if ((std::ceil(windowWidth / bodySize) * std::ceil(windowHeight / bodySize) - 2) == bodies.size())
 						{
-							/*							
-							firstFreeSpace.clear();
-							findFirstFreeSpace();
-
-							Body body;
-
-							positions.push_back(firstFreeSpace[0]);
-
-							body.rect.setPosition(positions[0]);
-
-							body.rect.setFillColor(sf::Color::Magenta);
-
-							bodies.push_back(body);
-							*/
-
 							gameStadium = 3;
 							
 							gameOver_text.setString("Victory!");
