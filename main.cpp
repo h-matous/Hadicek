@@ -442,7 +442,6 @@ int main()
 					{
 						positions.erase(positions.begin());
 						bodies.erase(bodies.begin());
-						
 					}
 
 					Body body;
